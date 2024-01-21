@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="css/select.css" />
+    <title>Chat App</title>
+</head>
+
+<body>
+    <div class="join-container">
+        <header class="join-header">
+            <h1><i class="fas fa-smile"></i> Chat</h1>
+        </header>
+        <main class="join-main">
+            <form method="post" action="/chat" id="joinForm"> 
+            <input type="hidden" id="userName" name="userName" value="<%= userName %>">
+            <input type="hidden" id="email" name="email" value="<%= email %>">
+                <div class="form-control">
+                    <label for="optionType">Select Option</label><br>
+                    <div style="display: flex; flex-direction: row; justify-content: space-around;">
+                        <div style="display: flex; flex-direction: row;">
+                            <input style="margin-bottom: 6px; margin-right: 5px;" type="radio" name="optionType"
+                                value="rooms" id="roomsRadio" checked="checked">
+                            <label for="roomsRadio">Rooms</label>
+                        </div>
+                        <div style="display: flex; flex-direction: row;">
+                            <input style="margin-bottom: 6px; margin-right: 5px;" type="radio" name="optionType"
+                                value="createRoom" id="createRoomsRadio">
+                            <label for="createRoomsRadio">Create Room</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-control" id="roomsDropdown">
+                    <label for="room">Select Room</label>
+                    <select name="room" id="room">
+                         <% rooms.map((room) => { %>
+                              <option value="<%= room.name %>">
+                                  <%= room.name %>
+                              </option>
+                          <% }) %>
+                    </select>
+                </div>
+                <div class="form-control" id="createRoomInput" style="display: none;">
+                    <label for="name">Room Name</label>
+                    <input type="text" name="roomName" id="name" placeholder="Enter room name..."/>
+                </div>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var roomsRadio = document.getElementById("roomsRadio");
+            var createRoomsRadio = document.getElementById("createRoomsRadio");
+
+            var roomsDropdown = document.getElementById("roomsDropdown");
+            var createRoomInput = document.getElementById("createRoomInput");
+
+            roomsRadio.addEventListener("change", function () {
+                roomsDropdown.style.display = "block";
+                createRoomInput.style.display = "none";
+            });
+
+            createRoomsRadio.addEventListener("change", function () {
+                roomsDropdown.style.display = "none";
+                createRoomInput.style.display = "block";
+            });
+        });
+    </script>
+</body>
+
+</html>
